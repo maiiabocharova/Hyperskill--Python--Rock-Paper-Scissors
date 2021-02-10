@@ -1,0 +1,61 @@
+import itertools
+import re
+print('Print a random string containing 0 or 1:')
+#1010101101010101010011100101001010100101010000101000101010000100101011010001001000101011101000101010010100101
+final = ""
+n = 100
+while len(final)<n:
+    s = input()
+    for char in s:
+        if char == "0" or char == "1":
+            final += char
+    if len(final)<n:
+        print(f'Current data length is {len(final)}, {n - len(final)} symbols left')
+print(f"Final data string:\n{final}")
+x = [0,1]
+l = itertools.product(x, repeat=3)
+lst = []
+for p in l:
+    s = ""
+    for i in p:
+        s+=str(i)
+    lst.append(s)
+my_dic_0 = {}
+my_dic_1 = {}
+for comb in lst:
+    cnt1 = len(re.findall(f'(?={comb}0)', final))
+    cnt2 = len(re.findall(f'(?={comb}1)', final))
+    my_dic_0[comb] = cnt1
+    my_dic_1[comb] = cnt2
+cnt_0 = 0
+cnt_1 = 0
+for key in my_dic_0:
+    cnt_0 += my_dic_0[key]
+for key in my_dic_1:
+    cnt_1 += my_dic_1[key]
+
+
+print('Please enter a test string containing 0 or 1:')
+inp = list(input())
+out = ''
+if cnt_0 > cnt_1:
+    out += '000'
+else:
+    out += '111'
+for i in range(0, len(inp)-3):
+    chunk = inp[i:i+3]
+    chunk = "".join(chunk)
+    if int(my_dic_0[chunk]) > int(my_dic_1[chunk]):
+        out += '0'
+    else:
+        out += '1'
+print(f'prediction:\n{out}')
+correct = 0
+wrong = 0
+for idx in range(len(list(out)))[3:]:
+    if inp[idx] == out[idx]:
+        correct += 1
+    else:
+        wrong += 1
+all = correct + wrong
+print(f'Computer guessed right {correct} out of {all} symbols ({round(100 * correct / all, 2)} %)')
