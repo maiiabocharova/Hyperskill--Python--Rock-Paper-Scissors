@@ -1,1 +1,1 @@
-# Hyperskill--Python--Rock-Paper-Scissors
+# Testing of Hyperskill Python projects
