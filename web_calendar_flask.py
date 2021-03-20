@@ -1,4 +1,4 @@
-from flask import Flask, abort, make_response, jsonify
+from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api, Resource
 from flask_restful import reqparse, inputs
@@ -99,7 +99,6 @@ class EventByID(Resource):
         if event:
             db.session.delete(event)
             db.session.commit()
-            print('in deleting')
             return {"message": "The event has been deleted!"}
         else:
             abort(404, "The event doesn't exist!")
