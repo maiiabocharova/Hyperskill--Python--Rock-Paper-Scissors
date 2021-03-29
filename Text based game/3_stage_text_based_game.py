@@ -157,4 +157,3 @@ class Game:
 
 game = Game()
 game.main()
-© 2021 GitHub, Inc.
